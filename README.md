@@ -1,0 +1,3 @@
+Preparing for push notification workshop
+
+Xshop is a famous icecream shop at which there are many different tasty flavours. But there is one problem: the price is literally high. To solve this problem, ThucDX - shop's owner, want to develop a feature that allow potential customer to subsribe to 'price change'. So that whenever a price of an icecream changed, customer will be notified via his/her smartphone. 
