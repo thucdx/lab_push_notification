@@ -31,24 +31,34 @@ app.get('/products/:productid', function(req, res) {
 
 // Change product details
 app.post('/products/:productid', function(req, res) {
-	var cur_product = product.get(req.params.productid);
-	var last_price = cur_product.price;
-	var new_price = req.body.price;
+	var curProduct = product.get(req.params.productid);
+	var newDetail = curProduct;
 
-	if (new_price != last_price) {
-		var message = "[Price changed] " + cur_product.name + " :" + last_price + " -> " + new_price;
-		// console.log(pusher.notifyIos(default_token, "[Price changed] " + cur_product.name + " :" + last_price + " -> " + new_price));
-		pusher.notifyAll(subscriber.getAll(), message);
+	if (req.body.name != undefined) {
+		newDetail.name = req.body.name;
+	}
+
+	if (req.body.image != undefined) {
+		newDetail.image = req.body.image;
+	}
+
+	if (req.body.description != undefined) {
+		newDetail.description = req.body.description;
+	}
+
+	if (req.body.price != undefined) {
+		var curPrice = curProduct.price;
+		newDetail.price = req.body.price;
+
+		if (newDetail.price != curPrice) {
+			var message = "[Price changed] " + curProduct.name + " :" + curPrice + " -> " + newDetail.price;
+			console.log(message);
+			pusher.notifyAll(subscriber.getAll(), message);		
+		}
 	}
 
 	res.json(
-		product.updateById(req.params.productid, {
-			id: req.body.id,
-			name: req.body.name,
-			image: req.body.image,
-			description: req.body.description,
-			price: req.body.price
-		})
+		product.updateById(req.params.productid, newDetail)
 	);
 });
 
@@ -62,13 +72,13 @@ app.post('/subscribe', function(req, res) {
 	var device_token = req.body.device_token;
 	var os = req.body.os;
 
-	if (device_token == null || os == null || (os != 1 && os != 2)) {
+	if (device_token == undefined || os == undefined || (os != 1 && os != 2)) {
 		res.send(JSON.stringify({ status: "ERROR!" }));
 		return;
 	}
 
 	subscriber.subscribe(device_token, os);
-	res.send(JSON.stringify({status: "GOT IT " + device_token + " " + os }));
+	res.send(JSON.stringify({status: "GOT: " + device_token + " " + os }));
 });
 
 app.listen(3000, function() {
