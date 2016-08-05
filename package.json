@@ -8,11 +8,11 @@
     "start": "node-dev index.js"
   },
   "dependencies": {
-	"express": "~4.13.2",
-	"ejs": "*",
-	"body-parser": "*",
-	"node-dev": "*",
-	"apn": "*"
+  	"express": "~4.13.2",
+  	"ejs": "*",
+  	"body-parser": "*",
+  	"node-dev": "*",
+  	"apn": "*"
   },
   "author": "thucdx",
   "license": "MIT"

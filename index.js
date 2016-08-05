@@ -2,7 +2,9 @@ var express = require('express');
 var path = require('path');
 var product = require('./models/product');
 var subscriber = require('./models/subscriber');
+var default_token = 'c77477eeac54c1dd4c196e9baf29a5b3f051b3e0a7bb5ed9be14bef062005533';
 var app = express();
+var pusher = require('./push_services/pusher');
 var bodyParser = require('body-parser');
 
 app.set('views', path.join(__dirname, 'views'));
@@ -26,6 +28,14 @@ app.get('/products/:productid', function(req, res) {
 });
 
 app.post('/products/:productid', function(req, res) {
+	var cur_product = product.get(req.params.productid);
+	var last_price = cur_product.price;
+	var new_price = req.body.price;
+
+	if (new_price != last_price) {
+		console.log(pusher.notifyIos(default_token, "[Price changed] " + cur_product.name + " :" + last_price + " -> " + new_price));
+	}
+
 	res.json(
 		product.updateById(req.params.productid, {
 			id: req.body.id,
@@ -45,8 +55,8 @@ app.post('/subscribe', function(req, res) {
 	var device_token = req.body.device_token;
 	var os = req.body.os;
 
-	if (device_token == null || os == null) {
-		res.send(JSON.stringify({ status: "ERROR!"}));
+	if (device_token == null || os == null || (os != 1 && os != 2)) {
+		res.send(JSON.stringify({ status: "ERROR!" }));
 		return;
 	}
 
