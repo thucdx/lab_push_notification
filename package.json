@@ -12,7 +12,8 @@
   	"ejs": "*",
   	"body-parser": "*",
   	"node-dev": "*",
-  	"apn": "*"
+  	"apn": "*",
+    "node-gcm": "*"
   },
   "author": "thucdx",
   "license": "MIT"

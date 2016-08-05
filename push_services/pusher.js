@@ -1,6 +1,17 @@
+// ios push 
 var apn = require('apn');
 var options = {production: false, key: 'config/dev_cer.pem', cert: 'config/dev_cer.pem', passphrase: '1' };
 var apnConnection = new apn.Connection(options);
+
+
+// android push 
+var gcm = require('node-gcm');
+var sender = new gcm.Sender('AIzaSyAsg1PzI6_wJybitvOTHYWtx7SsezJgJGE');
+// Server API Key
+// AIzaSyAsg1PzI6_wJybitvOTHYWtx7SsezJgJGE
+// Sender ID help
+// 1052369659845
+
 
 module.exports = {
 	
@@ -16,8 +27,32 @@ module.exports = {
 		return JSON.stringify({status: "push ios ok!"});
 	},
 
-	notifyAndroid: function(device_token, message) {
-		return JSON.stringify({status: "not supported yet"});
+	notifyAndroid: function(device_tokens, message) {
+		console.log(device_tokens);
+
+		var push_message = new gcm.Message({
+			data: {
+				from: 'Xshop',
+				category: 'Price changed'
+			},
+			notification: {
+				title: 'Price changed!',
+				body: message
+			}
+		});
+
+		sender.send(push_message,  {registrationTokens: device_tokens}, function (err, response) {
+    		if (err) {
+    			console.log("error!");
+    			console.error(err);
+    		}
+    		else {
+    			console.log(response);
+    			console.log("OK !");
+    		}
+		});
+
+		return JSON.stringify({status: "push android ok!"});
 	},
 
 	notifyAll: function(subscribers, message) {
@@ -28,11 +63,12 @@ module.exports = {
 		}
 
 		// android
-		for (var i = 0; i < subscribers["android"].length; ++i) {
-			var token = subscribers["android"][i];
-			console.log("[Android] Going to notify " + token)
-			// this.notifyIos(token, message);
-		}
+		this.notifyAndroid(subscribers["android"], message);
+		// for (var i = 0; i < subscribers["android"].length; ++i) {
+		// 	var token = subscribers["android"][i];
+		// 	console.log("[Android] Going to notify " + token)
+		// 	this.notifyAndroid(token, message);
+		// }
 
 		return JSON.stringify({status: "done"});
 	}
