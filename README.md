@@ -1,16 +1,17 @@
-### Introduction
-Project for push notification workshop
+### 1. Introduction
+Project for push notification workshop.
 
-Xshop is a famous icecream shop. There are many different tasty flavours. But there is one big problem: the price is literally too high. To solve this, ThucDX - shop's owner, want to develop a feature that allow potential customer to subsribe to 'price change'. So that whenever a price of an icecream changed, customer will be notified via his/her smartphone. 
+`XShop` is a famous icecream shop. There are many different tasty flavours. But there is one big problem: the price is literally too high. To solve this, ThucDX - shop's owner, want to develop a feature that allow potential customer to subsribe to 'price change'. So that whenever a price of an icecream changed, customer will be notified via his/her smartphone. The feature should works for both Android and iOS clients
 
+### 2. Running up
 
-### Start server
+Project has been written in NodeJS
 
 #### npm & node
 To start server, you need to install `npm` and `node`. Please use google to install them first.
 
 #### dependency
-To install all necessary depencies for project
+To install all necessary dependencies for project
 ```
 npm install
 ```
@@ -20,8 +21,32 @@ npm install
 npm start
 ```
 
-### API Guide
+### 3. What to do
+Project was almost done. The notification pushing was left for you. In particular, you need to fill out the configuration and write some code to `push_service/pusher.js`
 
+Some hints:
+- iOS: `apn` module is used to communicate with `APNS` (Apple Push Nofitication Service). Checkout an example in `other/apn.js`
+- Android: `node-gcm` module is used to communcate with `GCM` (goolge cloud message). Checkout an example in `other/gcm.js`
+- For those who is `php-aholic`, check out: `other/newspush-1.php`
+
+### 4. Definition of Done
+You are required to finish server code for either `Android` or `iOS`. Though both are warmly welcome :-)
+
+Test case
+> Step 1. Client (Android app / iOS app) subscribe to 'price change' by POST a JSON message to `/subscribe`
+
+You could verify your tokens key was added by making a GET request to `/subscribers`
+
+> Step 2. Server make change to 'price' of any product by making POST request to `/products/:productId`
+
+You could verify price changed by making a GET request to `/products`
+
+> WHAT TO EXPECT (IMPORTANT!)
+Client receives a notification that details about pricing changed
+
+> HINT: you should use `PostMan`(Chrome extension) or `curl` (unix utility) to make request to server
+
+### 5. API Guide
 #### Products list
 Request
 ```
