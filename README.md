@@ -82,3 +82,20 @@ os : 1 - ios, 2 - android
 ```
 GET /subscribers
 ```
+
+
+### Start server
+
+#### npm & node
+To start server, you need to install `npm` and `node`. Please use google to install them first.
+
+#### dependency
+To install all necessary depencies for project
+```
+npm install
+```
+
+#### running up
+```
+npm start
+```
