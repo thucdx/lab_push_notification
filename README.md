@@ -1,6 +1,8 @@
 ### 1. Introduction
 Project for push notification workshop.
 
+![XShop icream](http://www.funzine.hu/wp-content/uploads/2014/05/140508_fagyizok-848x296.jpg)
+
 `XShop` is a famous icecream shop. There are many different tasty flavours. But there is one big problem: the price is literally too high. To solve this, ThucDX - shop's owner, want to develop a feature that allow potential customer to subsribe to 'price change'. So that whenever a price of an icecream changed, customer will be notified via his/her smartphone. The feature should works for both Android and iOS clients
 
 ### 2. Running up
@@ -41,7 +43,7 @@ You could verify your tokens key was added by making a GET request to `/subscrib
 
 You could verify price changed by making a GET request to `/products`
 
-> WHAT TO EXPECT (IMPORTANT!)
+> WHAT TO EXPECT (IMPORTANT!):
 Client receives a notification that details about pricing changed
 
 > HINT: you should use `PostMan`(Chrome extension) or `curl` (unix utility) to make request to server
