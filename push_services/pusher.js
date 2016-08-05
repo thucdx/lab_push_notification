@@ -12,9 +12,7 @@ var sender = new gcm.Sender('AIzaSyAsg1PzI6_wJybitvOTHYWtx7SsezJgJGE');
 // Sender ID help
 // 1052369659845
 
-
 module.exports = {
-	
 	notifyIos: function(device_token, message) {
 		var myDevice = new apn.Device(device_token);
 		var note = new apn.Notification();
@@ -32,11 +30,12 @@ module.exports = {
 
 		var push_message = new gcm.Message({
 			data: {
-				from: 'Xshop',
+				shop: 'Xshop',
 				category: 'Price changed'
 			},
+
 			notification: {
-				title: 'Price changed!',
+				title: '[XShop] Price changed!',
 				body: message
 			}
 		});
@@ -48,7 +47,7 @@ module.exports = {
     		}
     		else {
     			console.log(response);
-    			console.log("OK !");
+    			console.log("OK !");	
     		}
 		});
 
