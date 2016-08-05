@@ -35,7 +35,7 @@ app.post('/products/:productid', function(req, res) {
 	if (new_price != last_price) {
 		var message = "[Price changed] " + cur_product.name + " :" + last_price + " -> " + new_price;
 		// console.log(pusher.notifyIos(default_token, "[Price changed] " + cur_product.name + " :" + last_price + " -> " + new_price));
-		pusher.notifyAll(subscriber.getAll, message);
+		pusher.notifyAll(subscriber.getAll(), message);
 	}
 
 	res.json(
