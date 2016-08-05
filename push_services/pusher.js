@@ -1,10 +1,10 @@
-// ios push 
+// IOS push - APNS
 var apn = require('apn');
 var options = {production: false, key: 'config/dev_cer.pem', cert: 'config/dev_cer.pem', passphrase: '1' };
 var apnConnection = new apn.Connection(options);
 
 
-// android push 
+// ANDROID push - GCM
 var gcm = require('node-gcm');
 var sender = new gcm.Sender('AIzaSyAsg1PzI6_wJybitvOTHYWtx7SsezJgJGE');
 // Server API Key
@@ -31,11 +31,11 @@ module.exports = {
 		var push_message = new gcm.Message({
 			data: {
 				shop: 'Xshop',
-				category: 'Price changed'
+				category: 'Price has changed'
 			},
 
 			notification: {
-				title: '[XShop] Price changed!',
+				title: '[XShop] Price has changed!',
 				body: message
 			}
 		});
@@ -63,11 +63,6 @@ module.exports = {
 
 		// android
 		this.notifyAndroid(subscribers["android"], message);
-		// for (var i = 0; i < subscribers["android"].length; ++i) {
-		// 	var token = subscribers["android"][i];
-		// 	console.log("[Android] Going to notify " + token)
-		// 	this.notifyAndroid(token, message);
-		// }
 
 		return JSON.stringify({status: "done"});
 	}

@@ -1,3 +1,4 @@
+// Push notification for Android
 var gcm = require('node-gcm');
 var sender = new gcm.Sender('AIzaSyAsg1PzI6_wJybitvOTHYWtx7SsezJgJGE');
 

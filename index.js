@@ -2,10 +2,9 @@ var express = require('express');
 var path = require('path');
 var product = require('./models/product');
 var subscriber = require('./models/subscriber');
-// var default_token = 'c77477eeac54c1dd4c196e9baf29a5b3f051b3e0a7bb5ed9be14bef062005533';
-var app = express();
 var pusher = require('./push_services/pusher');
 var bodyParser = require('body-parser');
+var app = express();
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -15,18 +14,22 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
+// Just hello page
 app.get('/hello', function(req, res) {
 	res.render('hello', {name: 'thucdx'});
 });
 
+// Get list of all products
 app.get('/products', function(req, res) {
 	res.json(product.getAll());
 });
 
+// Get product detail by id
 app.get('/products/:productid', function(req, res) {
 	res.json(product.get(req.params.productid));
 });
 
+// Change product details
 app.post('/products/:productid', function(req, res) {
 	var cur_product = product.get(req.params.productid);
 	var last_price = cur_product.price;
@@ -49,10 +52,12 @@ app.post('/products/:productid', function(req, res) {
 	);
 });
 
+// Get list of subscribers
 app.get('/subscribers', function(req, res) {
 	res.json(subscriber.getAll());
 });
 
+// Subscribe
 app.post('/subscribe', function(req, res) {
 	var device_token = req.body.device_token;
 	var os = req.body.os;
@@ -64,15 +69,6 @@ app.post('/subscribe', function(req, res) {
 
 	subscriber.subscribe(device_token, os);
 	res.send(JSON.stringify({status: "GOT IT " + device_token + " " + os }));
-});
-
-// ADMIN
-app.get('/admin', function(req, res) {
-	res.render('admin', {products: product.getAll});
-});
-
-app.post('/admin', function(req, res) {
-	res.send("???");
 });
 
 app.listen(3000, function() {
