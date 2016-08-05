@@ -31,26 +31,23 @@ GET /products
 Response
 list of products. For example
 ```JSON
-{
-    items : [
-        {
-            "id": 1,
-            "name": "product name 01",
-            "description": "description",
-            "price": 50000,
-            "image": "http://abc.com/x.jpg"
-        },
+[
+    {
+        "id": 1,
+        "name": "product name 01",
+        "description": "description",
+        "price": 50000,
+        "image": "http://abc.com/x.jpg"
+    },
 
-        {
-            "id": 1,
-            "name": "product name 01",
-            "description": "description",
-            "price": 50000,
-            "image": "http://abc.com/x.jpg"
-        }
-    ]
-}
-
+    {
+        "id": 1,
+        "name": "product name 01",
+        "description": "description",
+        "price": 50000,
+        "image": "http://abc.com/x.jpg"
+    }
+]
 ```
 
 #### Get product detail
@@ -78,7 +75,7 @@ POST   /products/:productId
     "id": id,
     "name": "new_name",
     "image": "new_image_url",
-    "price": "new_price"
+    "price": new_price
 }
 ```
 
@@ -86,7 +83,7 @@ POST   /products/:productId
 
 Request
 ```JSON
-PUSH /subscribe
+POST /subscribe
 {
     "device_token": "your_device_token",
     "os": 1
