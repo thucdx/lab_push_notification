@@ -2,7 +2,7 @@ var express = require('express');
 var path = require('path');
 var product = require('./models/product');
 var subscriber = require('./models/subscriber');
-var default_token = 'c77477eeac54c1dd4c196e9baf29a5b3f051b3e0a7bb5ed9be14bef062005533';
+// var default_token = 'c77477eeac54c1dd4c196e9baf29a5b3f051b3e0a7bb5ed9be14bef062005533';
 var app = express();
 var pusher = require('./push_services/pusher');
 var bodyParser = require('body-parser');
@@ -33,7 +33,9 @@ app.post('/products/:productid', function(req, res) {
 	var new_price = req.body.price;
 
 	if (new_price != last_price) {
-		console.log(pusher.notifyIos(default_token, "[Price changed] " + cur_product.name + " :" + last_price + " -> " + new_price));
+		var message = "[Price changed] " + cur_product.name + " :" + last_price + " -> " + new_price;
+		// console.log(pusher.notifyIos(default_token, "[Price changed] " + cur_product.name + " :" + last_price + " -> " + new_price));
+		pusher.notifyAll(subscribers.getAll, message);
 	}
 
 	res.json(
@@ -70,7 +72,7 @@ app.get('/admin', function(req, res) {
 });
 
 app.post('/admin', function(req, res) {
-
+	res.send("???");
 });
 
 app.listen(3000, function() {
