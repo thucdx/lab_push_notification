@@ -1,7 +1,7 @@
 ### 1. Introduction
 Project for push notification workshop.
 
-![XShop icream](http://www.funzine.hu/wp-content/uploads/2014/05/140508_fagyizok-848x296.jpg)
+![XShop icecream](http://static.wixstatic.com/media/5ad51d_3e0c4bcd6b744fc5b0100eeb3ed33d5d.jpg)
 
 `XShop` is a famous icecream shop. There are many different tasty flavours. But there is one big problem: the price is literally too high. To solve this, ThucDX - shop's owner, want to develop a feature that allow potential customer to subsribe to 'price change'. So that whenever a price of an icecream changed, customer will be notified via his/her smartphone. The feature should works for both Android and iOS clients
 
